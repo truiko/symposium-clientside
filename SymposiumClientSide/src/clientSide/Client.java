@@ -24,7 +24,7 @@ public class Client extends JFrame{
 		userText.addActionListener(
 			new ActionListener(){
 				public void actionPerformed(ActionEvent event){
-					sendData(event.getActionCommand());
+					sendMessage(event.getActionCommand());
 					userText.setText("");
 				}
 			}
@@ -35,5 +35,23 @@ public class Client extends JFrame{
 		setSize(300,150);
 		setVisible(true);
 	}
-
+	
+	public void startRunning(){
+		try{
+			connectToServer();
+			setupStreams();
+			whileChatting();
+		}catch(EOFException eofException){
+			showMessage("\n Client terminated connection");
+		}catch(IOException ioException){
+			ioException.printStackTrace();
+		}finally{
+			closeAll();
+		}
+	}
+	
+	//connect to server
+	public void connectToServer() throws IOException{
+		showMessage("Attempting connection... \n");
+	}
 }
