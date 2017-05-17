@@ -1,8 +1,10 @@
 package imageUpload;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
+import java.awt.BorderLayout;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
@@ -24,6 +26,17 @@ public class ImageSender {
 				}catch(Exception e){
 					e.printStackTrace();
 				}
+				JLabel lbl = new JLabel();
+				try{
+					lbl.setIcon(new ImageIcon(img));
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+				
+				frame.getContentPane().add(lbl, BorderLayout.CENTER);
+				frame.pack();
+				frame.setLocationRelativeTo(null);
+				frame.setVisible(true);
 			}
 			
 		});
