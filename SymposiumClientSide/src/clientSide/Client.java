@@ -102,6 +102,11 @@ public class Client extends JFrame{
 		}
 	}
 	
+	//checks through the input to see if there are any characters that correspond with an emoji and changes it if found
+	private void checkEmoji(String message){
+		
+	}
+	
 	// change/update chatWindow
 	private void showMessage(final String m){
 		SwingUtilities.invokeLater(
