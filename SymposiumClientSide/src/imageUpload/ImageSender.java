@@ -30,7 +30,8 @@ public class ImageSender {
 				try{
 					lbl.setIcon(new ImageIcon(img));
 				}catch(Exception e){
-					e.printStackTrace();
+					//e.printStackTrace();
+					System.out.println("This is not an image.");
 				}
 				
 				frame.getContentPane().add(lbl, BorderLayout.CENTER);
