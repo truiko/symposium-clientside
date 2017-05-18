@@ -10,6 +10,7 @@ public class Client extends JFrame{
 
 	private JTextField userText;
 	private JTextArea chatWindow;
+	private JTextPane pane;
 	private ObjectOutputStream output;
 	private ObjectInputStream input;
 	private String message = "";
@@ -20,6 +21,7 @@ public class Client extends JFrame{
 		super("Symposium Client");
 		serverIP = host;
 		userText = new JTextField();
+		pane = new JTextPane();
 		userText.setEditable(false);
 		userText.addActionListener(
 			new ActionListener(){
@@ -34,6 +36,11 @@ public class Client extends JFrame{
 		add(new JScrollPane(chatWindow), BorderLayout.CENTER);
 		setSize(300,150);
 		setVisible(true);
+		
+		pane.setPreferredSize(new Dimension(150, 150));
+		add(pane, BorderLayout.WEST);
+		pane.setVisible(true);
+		//pane.insertIcon(arg0);
 	}
 	
 	public void startRunning(){
