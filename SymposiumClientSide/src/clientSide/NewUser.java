@@ -14,7 +14,7 @@ public class NewUser extends JFrame {
 
 
   public NewUser(){
-	  super("Registration");
+	  super("Create New User");
 
 	  create = new JButton("Create");
 	  newUserPanel = new JPanel();
