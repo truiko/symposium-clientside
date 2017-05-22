@@ -40,7 +40,7 @@ public class Client extends JFrame{
 		pane.setPreferredSize(new Dimension(150, 150));
 		add(pane, BorderLayout.WEST);
 		pane.setVisible(true);
-		//pane.insertIcon(arg0);
+		pane.insertIcon(new ImageIcon("src/resources/redcolor.jpg"));
 	}
 	
 	public void startRunning(){
