@@ -37,10 +37,12 @@ public class Client extends JFrame{
 		setSize(300,150);
 		setVisible(true);
 		
-		pane.setPreferredSize(new Dimension(150, 150));
-		add(pane, BorderLayout.WEST);
+		pane.setPreferredSize(new Dimension(50, 50));
+		add(new JScrollPane(pane), BorderLayout.WEST);
 		pane.setVisible(true);
 		pane.insertIcon(new ImageIcon("src/resources/redcolor.jpg"));
+		pane.insertIcon(new ImageIcon("src/resources/Desert.jpg"));
+		//((JTextPane) chatWindow).insertIcon(new ImageIcon("src/resources/redcolor.jpg"));
 	}
 	
 	public void startRunning(){
