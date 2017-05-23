@@ -29,7 +29,7 @@ public class MicThread extends Thread {
         this.toServer = toServer;
         //open microphone line, an exception is thrown in case of error
         AudioFormat af = SoundPacket.defaultFormat;
-        DataLine.Info info = new DataLine.Info(TargetDataLine.class, null);
+        DataLine.Info info = new DataLine.Info(TargetDataLine.class, af);
         mic = (TargetDataLine) (AudioSystem.getLine(info));
         mic.open(af);
         mic.start();

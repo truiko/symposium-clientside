@@ -4,22 +4,35 @@ import java.io.*;
 import java.net.*;
 import java.awt.*;
 import java.awt.event.*;
+
+import javax.sound.sampled.LineUnavailableException;
 import javax.swing.*;
 
 public class Client extends JFrame{
 
 	private JTextField userText;
 	private JTextArea chatWindow;
+	private JButton micButton;
 	private ObjectOutputStream output;
 	private ObjectInputStream input;
 	private String message = "";
 	private String serverIP;
 	private Socket connection;
+	private MicThread st;
 	
 	public Client(String host) {
 		super("Symposium Client");
 		serverIP = host;
 		userText = new JTextField();
+		micButton = new JButton("Voice");
+		micButton.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				startMic();	
+			}
+			
+		});
 		userText.setEditable(false);
 		userText.addActionListener(
 			new ActionListener(){
@@ -32,6 +45,7 @@ public class Client extends JFrame{
 		add(userText, BorderLayout.NORTH);
 		chatWindow = new JTextArea();
 		add(new JScrollPane(chatWindow), BorderLayout.CENTER);
+		add(micButton, BorderLayout.SOUTH);
 		setSize(300,150);
 		setVisible(true);
 	}
@@ -78,6 +92,18 @@ public class Client extends JFrame{
 		}while(!message.equals("SERVER - END"));
 	}
 	
+	private void startMic() {
+        try {
+        	System.out.println("on");
+            Utils.sleep(100); //wait for the GUI microphone test to release the microphone
+            st = new MicThread(output);  //creates a MicThread that sends microphone data to the server
+            st.start(); //starts the MicThread
+        } catch (LineUnavailableException e) { //error acquiring microphone. causes: no microphone or microphone busy
+            showMessage("mic unavailable " + e);
+        }
+		
+	}
+
 	//close the streams and sockets
 	private void closeAll(){
 		showMessage("\n Closing all down... ");
