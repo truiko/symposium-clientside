@@ -72,7 +72,7 @@ public class Login extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					File file = new File("userPass.txt");
-					Scanner scan = new Scanner(file);;
+					Scanner scan = new Scanner(file);
 					String line = null;
 					FileWriter filewrite = new FileWriter(file, true);
 
@@ -89,8 +89,10 @@ public class Login extends JFrame {
           			}
 
           			if(puname.equals(usertxt) && ppaswd.equals(passtxt)) {
+          				//setVisible(false);
+          				//ClientTest.allow = true;
+          				//ClientTest.runClient();
           				dispose();
-          				ClientTest.runClient();
           			} 
           			else if(puname.equals("") && ppaswd.equals("")){
           				JOptionPane.showMessageDialog(null,"Please insert Username and Password");
