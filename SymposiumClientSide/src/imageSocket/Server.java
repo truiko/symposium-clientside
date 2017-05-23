@@ -15,19 +15,10 @@ import javax.swing.JFileChooser;
 import imageUpload.ImageSender;
 
 public class Server {
-
+	
 	public static void main(String[] args) throws Exception{
-		final JFileChooser fc = new JFileChooser();
-		int returnVal = fc.showOpenDialog(fc);
-		RenderedImage filePath = null;
-		//changed String to RenderedImage
-		if(returnVal == JFileChooser.APPROVE_OPTION){
-			filePath = (RenderedImage) fc.getSelectedFile();
-			//removed .getAbsolutePath()
-		}else{
-			System.out.println("User clicked CANCEL");
-			System.exit(1);
-		}
+		BufferedImage img = null;
+		
 		//new ImageSender(filePath);
 		
 		//BufferedImage screencapture = new ImageSender(filePath);
@@ -37,7 +28,23 @@ public class Server {
 	      try (Socket socket = serv.accept()) {
 	        System.out.println("client connected");
 	        //replaced screencapture with filePath
-	        ImageIO.write(filePath, "jpg", socket.getOutputStream());
+	        final JFileChooser fc = new JFileChooser();
+			int returnVal = fc.showOpenDialog(fc);
+			String filePath = null;
+			//changed String to RenderedImage
+			if(returnVal == JFileChooser.APPROVE_OPTION){
+				filePath = fc.getSelectedFile().getAbsolutePath();
+				//removed .getAbsolutePath()
+			}else{
+				System.out.println("User clicked CANCEL");
+				System.exit(1);
+			}
+			try{
+				img = ImageIO.read(new File(filePath));
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+	        ImageIO.write(img, "jpg", socket.getOutputStream());
 	        System.out.println("sent");
 	      }
 	    }
