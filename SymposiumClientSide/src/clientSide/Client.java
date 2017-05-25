@@ -6,6 +6,8 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import com.vdurmont.emoji.EmojiParser;
+
 public class Client extends JFrame{
 
 	private JTextField userText;
@@ -71,6 +73,7 @@ public class Client extends JFrame{
 		do{
 			try{
 				message = (String) input.readObject();
+				message = checkEmojiFromSymbol(message);
 				showMessage("\n" + message);
 			}catch(ClassNotFoundException classNotFoundException){
 				showMessage("\n I don't know that object type");
@@ -127,5 +130,20 @@ public class Client extends JFrame{
 				}
 			}
 		);		
+	}
+	
+	private static String checkEmojiFromSymbol(String message){
+		/* List of Emojis Used for this (so far):
+		 * 	frowning face[:(], wink[;)], upside down flipped face[(:"], tired face[>.<],
+		 *  hushed[o.o], blushed[:))], expressionless[:|], heart[<3], broken heart[</3] 
+		 */
+		String newString ="";
+		String str = ":smiley:";
+		for(int i = 1; i < message.length(); i++){
+			if(message.substring(i-1, i+1).equals(":)")){
+				newString = message.replace(message.substring(i-1,i+1), EmojiParser.parseToUnicode(str));
+			}
+		}
+		return newString;
 	}
 }
