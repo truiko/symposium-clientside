@@ -20,6 +20,7 @@ public class Client {
 		      f.getContentPane().add(label);
 		      f.pack();
 		      f.setVisible(true);
+		      System.out.println("image is displayed");
 		    }
 
 	}

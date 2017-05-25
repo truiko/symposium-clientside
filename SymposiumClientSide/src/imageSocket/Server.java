@@ -49,6 +49,9 @@ public class Server {
 			}
 	        ImageIO.write(img, "jpg", socket.getOutputStream());
 	        System.out.println("sent");
+	        //there will be attachment button
+	        //when it is clicked, file chooser will show
+	        //client and server must always be connected
 	      }
 	    }
 
