@@ -55,6 +55,20 @@ public class Client extends JFrame{
 		showMessage("Attempting connection... \n");
 		connection = new Socket(InetAddress.getByName(serverIP), 6789);
 		showMessage("Connected to: " + connection.getInetAddress().getHostName());
+//		Writer writer = null;
+//		File check = new File("userPass.txt");
+//		if(check.exists()){
+//
+//			//Checks if the file exists. will not add anything if the file does exist.
+//		}else{
+//			try{
+//				File texting = new File("userPass.txt");
+//				writer = new BufferedWriter(new FileWriter(texting));
+//				writer.write("message");
+//			}catch(IOException e){
+//				e.printStackTrace();
+//			}
+//		}
 	}
 	
 	//set up streams to send and receive messages
