@@ -27,6 +27,7 @@ public class MicThread extends Thread {
     private TargetDataLine mic;
     private AudioFormat format;
 
+
     public MicThread(ObjectOutputStream toServer) throws LineUnavailableException {
         this.toServer = toServer;
         format = new AudioFormat(11025f, 8, 1, true, true);
@@ -34,7 +35,6 @@ public class MicThread extends Thread {
         // checks if system supports the data line
         if (!AudioSystem.isLineSupported(info)) {
         	System.out.println("Line not supported");
-            System.exit(0);
         }
         
         mic = (TargetDataLine) AudioSystem.getLine(info);

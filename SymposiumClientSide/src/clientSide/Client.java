@@ -48,8 +48,24 @@ public class Client extends JFrame{
 		add(micButton, BorderLayout.SOUTH);
 		setSize(300,150);
 		setVisible(true);
+		
+//		listenForVoice();
 	}
 	
+	private void listenForVoice() {
+		while(true){
+			try {
+				if(connection.getInputStream().available() > 0){
+					Message sound = (Message)(input.readObject());
+					
+				}
+			} catch (IOException | ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+
 	public void startRunning(){
 		try{
 			connectToServer();
