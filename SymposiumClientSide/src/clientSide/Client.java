@@ -2,6 +2,7 @@ package clientSide;
 
 import java.io.*;
 import java.net.*;
+import java.util.Scanner;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -47,8 +48,9 @@ public class Client extends JFrame{
 				System.out.println("yes");
 			}
 			if(check.exists()){
-				writer = new BufferedWriter(new FileWriter(check));
-				//Checks if the file exists. will not add anything if the file does exist.
+				File file = new File(System.getProperty("user.dir")+"/"+connection.getInetAddress()
+					.getHostName() + "+" + serverIP+ ".txt");
+				writer = new BufferedWriter(new FileWriter(file));
 			}else{
 				try{
 					File texting = new File("" + connection.getInetAddress().getHostName() + "+" + serverIP+ ".txt");
