@@ -42,7 +42,6 @@ public class Client extends JFrame{
 			setupStreams();
 			Writer writer = null;
 			File check = new File("" + connection.getInetAddress().getHostName() + "+" + serverIP+ ".txt");
-			System.out.println(connection.getInetAddress().getHostName());
 			if (check.createNewFile()){
 				System.out.println("yes");
 			}
