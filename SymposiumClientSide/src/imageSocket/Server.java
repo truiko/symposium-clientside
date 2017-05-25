@@ -24,14 +24,14 @@ public class Server {
 		//BufferedImage screencapture = new ImageSender(filePath);
 		//BufferedImage screencapture = new Robot().createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
 		JFileChooser fc = new JFileChooser();
-		int returnVal = fc.showOpenDialog(fc);
+		
 		try (ServerSocket serv = new ServerSocket(25000)) {
 	      System.out.println("waiting...");
 	      try (Socket socket = serv.accept()) {
 	        System.out.println("client connected");
 	        //replaced screencapture with filePath
-	        
-			System.out.println("file chooser is supposed to be opened");
+	        int returnVal = fc.showOpenDialog(fc);
+			//System.out.println("file chooser is supposed to be opened");
 			
 			String filePath = null;
 			//changed String to RenderedImage
