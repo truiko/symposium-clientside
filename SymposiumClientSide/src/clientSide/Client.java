@@ -132,4 +132,12 @@ public class Client extends JFrame{
 			}
 		);		
 	}
+	
+	private void sendImage(){
+		
+	}
+	
+	private void receiveImage(){
+		
+	}
 }
