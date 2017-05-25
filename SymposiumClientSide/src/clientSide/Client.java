@@ -15,6 +15,7 @@ public class Client extends JFrame{
 	private String message = "";
 	private String serverIP;
 	private Socket connection;
+	private Writer writer;
 	
 	public Client(String host) {
 		super("Symposium Client");
@@ -40,13 +41,13 @@ public class Client extends JFrame{
 		try{
 			connectToServer();
 			setupStreams();
-			Writer writer = null;
+			//writer = null;
 			File check = new File("" + connection.getInetAddress().getHostName() + "+" + serverIP+ ".txt");
 			if (check.createNewFile()){
 				System.out.println("yes");
 			}
 			if(check.exists()){
-
+				writer = new BufferedWriter(new FileWriter(check));
 				//Checks if the file exists. will not add anything if the file does exist.
 			}else{
 				try{
@@ -88,6 +89,7 @@ public class Client extends JFrame{
 			try{
 				message = (String) input.readObject();
 				showMessage("\n" + message);
+				writer.write(message);
 			}catch(ClassNotFoundException classNotFoundException){
 				showMessage("\n I don't know that object type");
 			}
