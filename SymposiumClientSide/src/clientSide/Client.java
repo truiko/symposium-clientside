@@ -48,9 +48,8 @@ public class Client extends JFrame{
 				System.out.println("yes");
 			}
 			if(check.exists()){
-				File file = new File(System.getProperty("user.dir")+"/"+connection.getInetAddress()
-					.getHostName() + "+" + serverIP+ ".txt");
-				writer = new BufferedWriter(new FileWriter(file));
+				writer = new BufferedWriter(new FileWriter("C:/Users/Student 8/git/symposium-clientside/SymposiumClientSide/"+connection.getInetAddress()
+					.getHostName() + "+" + serverIP+ ".txt"));
 			}else{
 				try{
 					File texting = new File("" + connection.getInetAddress().getHostName() + "+" + serverIP+ ".txt");
