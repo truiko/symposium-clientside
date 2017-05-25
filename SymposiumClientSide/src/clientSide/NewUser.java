@@ -48,7 +48,7 @@ public class NewUser extends JFrame {
 		  try{
 			  File texting = new File("userPass.txt");
 			  writer = new BufferedWriter(new FileWriter(texting));
-			  writer.write("message");
+			  //writer.write("message");
 		  }catch(IOException e){
 			  e.printStackTrace();
 		  }
