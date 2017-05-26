@@ -4,6 +4,9 @@ import java.io.*;
 import java.net.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class Client extends JFrame{
@@ -16,6 +19,7 @@ public class Client extends JFrame{
 	private String message = "";
 	private String serverIP;
 	private Socket connection;
+	private JButton attachment;
 	
 	public Client(String host) {
 		super("Symposium Client");
@@ -40,9 +44,24 @@ public class Client extends JFrame{
 		pane.setPreferredSize(new Dimension(50, 50));
 		add(new JScrollPane(pane), BorderLayout.WEST);
 		pane.setVisible(true);
-		pane.insertIcon(new ImageIcon("src/resources/redcolor.jpg"));
-		pane.insertIcon(new ImageIcon("src/resources/Desert.jpg"));
+		//pane.insertIcon(new ImageIcon("src/resources/redcolor.jpg"));
+		//pane.insertIcon(new ImageIcon("src/resources/Desert.jpg"));
 		//((JTextPane) chatWindow).insertIcon(new ImageIcon("src/resources/redcolor.jpg"));
+		attachment = new JButton("Attachment");
+		attachment.setSize(1,1);
+		add(attachment, BorderLayout.EAST);
+		attachment.setVisible(true);
+		
+		attachment.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				try {
+					sendImage();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 	}
 	
 	public void startRunning(){
@@ -133,11 +152,34 @@ public class Client extends JFrame{
 		);		
 	}
 	
-	private void sendImage(){
-		
+	private void sendImage() throws IOException{
+		BufferedImage img = null;
+		JFileChooser fc = new JFileChooser();
+		int returnVal = fc.showOpenDialog(fc);
+		String filePath = null;
+		if(returnVal == JFileChooser.APPROVE_OPTION){
+			filePath = fc.getSelectedFile().getAbsolutePath();
+		}else{
+			System.out.println("User clicked CANCEL");
+			System.exit(1);
+		}
+		try{
+			img = ImageIO.read(new File(filePath));
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+        ImageIO.write(img, "jpg", connection.getOutputStream());
+        System.out.println("sent");
 	}
 	
-	private void receiveImage(){
-		
+	private void receiveImage() throws IOException{
+		BufferedImage image = ImageIO.read(connection.getInputStream());
+	      System.out.println("got image");
+	      JLabel label = new JLabel(new ImageIcon(image));
+	      JFrame f = new JFrame("Image sent from server");
+	      f.getContentPane().add(label);
+	      f.pack();
+	      f.setVisible(true);
+	      System.out.println("image is displayed");
 	}
 }
