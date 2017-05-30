@@ -19,7 +19,11 @@ import java.net.UnknownHostException;
  */
 public class Utils {
     public static void sleep(int ms){
-        try {Thread.sleep(ms);} catch (InterruptedException ex) {}
+        try {
+        	Thread.sleep(ms);
+        } catch (InterruptedException ex) {
+        	ex.printStackTrace();
+        }
     }
     public static String getExternalIP(){
         try {
