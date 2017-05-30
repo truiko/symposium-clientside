@@ -168,12 +168,13 @@ public class Client extends JFrame{
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-        ImageIO.write(img, "jpg", connection.getOutputStream());
+        ImageIO.write(img, "jpg", output);
+        //output.flush();
         System.out.println("sent");
 	}
 	
 	private void receiveImage() throws IOException{
-		BufferedImage image = ImageIO.read(connection.getInputStream());
+		BufferedImage image = ImageIO.read(input);
 	      System.out.println("got image");
 	      JLabel label = new JLabel(new ImageIcon(image));
 	      JFrame f = new JFrame("Image sent from server");
