@@ -1,6 +1,9 @@
 package clientSide;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.zip.GZIPInputStream;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
@@ -23,6 +26,7 @@ public class AudioChannel extends Thread {
 	private boolean stop;
 	private ArrayList<Message> query;
 	private long lastPacketTime = System.nanoTime();
+	private long lastPacketLength = SoundPacket.defaultDataLength;
 	
 	
 	public AudioChannel(long chId){
@@ -32,6 +36,25 @@ public class AudioChannel extends Thread {
 	public long getChId(){
 		return this.chId;
 	}
+	
+    public void addToQueue(Message m) { //adds a message to the play queue
+        query.add(m);
+    }
+    
+    public boolean canKill() { //returns true if it's been a long time since last received packet
+        if (System.nanoTime() - lastPacketTime > 5000000000L) {
+            return true; //5 seconds with no data
+        } else {
+            return false;
+        }
+    }
+
+    public void closeAndKill() {
+        if (speaker != null) {
+            speaker.close();
+        }
+        stop = true;
+    }
 	
 	public void run(){
 		while(!stop){
@@ -47,13 +70,30 @@ public class AudioChannel extends Thread {
 						continue;
 					}else{
 						lastPacketTime = System.nanoTime();
-						Message m = query.remove(0);
-						if(m.getData() instanceof SoundPacket){
-							
-						}
+	                    Message message = query.remove(0);;
+	                    if (message.getData() instanceof SoundPacket) { //it's a sound packet, send it to sound card
+	                        SoundPacket m = (SoundPacket) (message.getData());
+	                        //decompress data
+	                        GZIPInputStream gis = new GZIPInputStream(new ByteArrayInputStream(m.getData()));
+	                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	                        for (;;) {
+                                int b = gis.read();
+                                if (b == -1) {
+                                    break;
+                                } else {
+                                    baos.write((byte) b);
+                                }
+                            }    
+	                        //play decompressed data
+	                        byte[] toPlay=baos.toByteArray();
+                            speaker.write(toPlay, 0, toPlay.length);
+                            lastPacketLength = m.getData().length;
+                            
+	                    }else { //not a sound packet, trash
+	                    	continue; //invalid message
+	                    }
 					}
 				}
-				
 			}catch(Exception e){
 				if(speaker != null){
 					speaker.close();

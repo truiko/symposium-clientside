@@ -2,6 +2,7 @@ package clientSide;
 
 import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -19,6 +20,7 @@ public class Client extends JFrame{
 	private String serverIP;
 	private Socket connection;
 	private MicThread st;
+	private ArrayList<AudioChannel> chs = new ArrayList<AudioChannel>();
 	
 	public Client(String host) {
 		super("Symposium Client");
@@ -30,6 +32,7 @@ public class Client extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				startMic();	
+				listenForVoice();
 			}
 			
 		});
@@ -57,13 +60,31 @@ public class Client extends JFrame{
 			try {
 				if(connection.getInputStream().available() > 0){
 					Message sound = (Message)(input.readObject());
+					AudioChannel sendTo = null;
+					for (AudioChannel ch : chs) {
+                        if (ch.getChId() == sound.getChId()) {
+                            sendTo = ch;
+                        }
+                    }
+                    if (sendTo != null) {
+                        sendTo.addToQueue(sound);
+                    } else { //new AudioChannel is needed
+                        AudioChannel ch = new AudioChannel(sound.getChId());
+                        ch.addToQueue(sound);
+                        ch.start();
+                        chs.add(ch);
+                    }
+                }else{ //see if some channels need to be killed and kill them
+                    ArrayList<AudioChannel> killMe=new ArrayList<AudioChannel>();
+                    for(AudioChannel c:chs) if(c.canKill()) killMe.add(c);
+                    for(AudioChannel c:killMe){c.closeAndKill(); chs.remove(c);}
+                    Utils.sleep(1); //avoid busy wait
+                }
 					
-				}
-			} catch (IOException | ClassNotFoundException e) {
+			}catch (IOException | ClassNotFoundException e) {
 				e.printStackTrace();
 			}
 		}
-		
 	}
 
 	public void startRunning(){
