@@ -54,7 +54,7 @@ public class Client extends JFrame{
 //						}
 //					}
 					try {
-						writer.write(event.getActionCommand());
+						writer.write(event.getActionCommand() + "\r\n");
 						System.out.println(event.getActionCommand());
 						System.out.println("heyyyy");
 					} catch (IOException e) {
