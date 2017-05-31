@@ -27,32 +27,25 @@ public class Client extends JFrame{
 			new ActionListener(){
 				public void actionPerformed(ActionEvent event){
 					sendMessage(event.getActionCommand());
-					try {
-						writer = new BufferedWriter(new FileWriter("C:/Users/Student 8/git/symposium-clientside/SymposiumClientSide/"+connection.getInetAddress()
-									.getHostName() + "+" + serverIP+ ".txt"));
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+					File check = new File("" + connection.getInetAddress().getHostName() + "+" + serverIP+ ".txt");
+					if(check.isFile()){
+						try {
+							writer = new BufferedWriter(new FileWriter("C:/Users/Student 8/git/symposium-clientside/SymposiumClientSide/"+connection.getInetAddress()
+									.getHostName() + "+" + serverIP+ ".txt", true));
+							System.out.println("hello");
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+						
+					}else{
+						try{
+							File texting = new File("" + connection.getInetAddress().getHostName() + "+" + serverIP+ ".txt");
+							writer = new BufferedWriter(new FileWriter(texting, true));
+							System.out.println("its me");
+						}catch(IOException e){
+							e.printStackTrace();
+						}
 					}
-//					File check = new File("" + connection.getInetAddress().getHostName() + "+" + serverIP+ ".txt");
-//					if(check.isFile()){
-//						try {
-//							writer = new BufferedWriter(new FileWriter("C:/Users/Student 8/git/symposium-clientside/SymposiumClientSide/"+connection.getInetAddress()
-//									.getHostName() + "+" + serverIP+ ".txt"));
-//							System.out.println("hello");
-//						} catch (IOException e) {
-//							e.printStackTrace();
-//						}
-//						
-//					}else{
-//						try{
-//							File texting = new File("" + connection.getInetAddress().getHostName() + "+" + serverIP+ ".txt");
-//							writer = new BufferedWriter(new FileWriter(texting));
-//							System.out.println("its me");
-//						}catch(IOException e){
-//							e.printStackTrace();
-//						}
-//					}
 					try {
 						writer.write(event.getActionCommand() + "\r\n");
 						System.out.println(event.getActionCommand());
