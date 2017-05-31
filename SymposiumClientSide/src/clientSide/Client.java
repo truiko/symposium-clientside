@@ -153,28 +153,36 @@ public class Client extends JFrame{
 	}
 	
 	private void sendImage() throws IOException{
+		//try (ServerSocket serv = new ServerSocket(25000)) {
+		 //     System.out.println("waiting...");
+		    //  try (connection = server.accept()) {
 		BufferedImage img = null;
 		JFileChooser fc = new JFileChooser();
 		int returnVal = fc.showOpenDialog(fc);
 		String filePath = null;
 		if(returnVal == JFileChooser.APPROVE_OPTION){
+			System.out.println("chosen");
 			filePath = fc.getSelectedFile().getAbsolutePath();
+			System.out.println("got filepath");
 		}else{
 			System.out.println("User clicked CANCEL");
 			System.exit(1);
 		}
 		try{
 			img = ImageIO.read(new File(filePath));
+			System.out.println("read image");
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-        ImageIO.write(img, "jpg", output);
+        ImageIO.write(img, "jpg", connection.getOutputStream());
         //output.flush();
         System.out.println("sent");
+		     // }
+		//}
 	}
 	
 	private void receiveImage() throws IOException{
-		BufferedImage image = ImageIO.read(input);
+		BufferedImage image = ImageIO.read(connection.getInputStream());
 	      System.out.println("got image");
 	      JLabel label = new JLabel(new ImageIcon(image));
 	      JFrame f = new JFrame("Image sent from server");
