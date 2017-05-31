@@ -88,10 +88,26 @@ public class Login extends JFrame {
           			}
 
           			if(puname.equals(usertxt) && ppaswd.equals(passtxt)) {
-          				//setVisible(false);
-          				//ClientTest.allow = true;
-          				//ClientTest.runClient();
-          				dispose();
+          				Client client;
+          				try{
+          					client = new Client("127.0.0.1");
+          					client.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+          					Thread go = new Thread(new Runnable() {
+								
+								@Override
+								public void run() {
+				
+									client.startRunning();
+									
+								}
+							});
+          					go.start();
+          					
+          					
+          				}catch(Exception ex){
+          					ex.printStackTrace();
+          				}
+          				setVisible(false);
           			} 
           			else if(puname.equals("") && ppaswd.equals("")){
           				JOptionPane.showMessageDialog(null,"Please insert Username and Password");
