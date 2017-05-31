@@ -2,6 +2,7 @@ package clientSide;
 
 import java.io.*;
 import java.net.*;
+import java.util.Scanner;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -15,6 +16,7 @@ public class Client extends JFrame{
 	private String message = "";
 	private String serverIP;
 	private Socket connection;
+	private BufferedWriter writer;
 	
 	public Client(String host) {
 		super("Symposium Client");
@@ -25,6 +27,37 @@ public class Client extends JFrame{
 			new ActionListener(){
 				public void actionPerformed(ActionEvent event){
 					sendMessage(event.getActionCommand());
+					File check = new File("" + connection.getInetAddress().getHostName() + "+" + serverIP+ ".txt");
+					if(check.isFile()){
+						try {
+							writer = new BufferedWriter(new FileWriter("C:/Users/Student 8/git/symposium-clientside/SymposiumClientSide/"+connection.getInetAddress()
+									.getHostName() + "+" + serverIP+ ".txt", true));
+							System.out.println("hello");
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+						
+					}else{
+						try{
+							File texting = new File("" + connection.getInetAddress().getHostName() + "+" + serverIP+ ".txt");
+							writer = new BufferedWriter(new FileWriter(texting, true));
+							System.out.println("its me");
+						}catch(IOException e){
+							e.printStackTrace();
+						}
+					}
+					try {
+						writer.write(event.getActionCommand() + "\r\n");
+						System.out.println(event.getActionCommand());
+						System.out.println("heyyyy");
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					try {
+						writer.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 					userText.setText("");
 				}
 			}
@@ -40,6 +73,23 @@ public class Client extends JFrame{
 		try{
 			connectToServer();
 			setupStreams();
+			//writer = null;
+//			File check = new File("" + connection.getInetAddress().getHostName() + "+" + serverIP+ ".txt");
+//			if (check.createNewFile()){
+//				System.out.println("yes");
+//			}
+//			if(check.exists()){
+//				writer = new BufferedWriter(new FileWriter("C:/Users/Student 8/git/symposium-clientside/SymposiumClientSide/"+connection.getInetAddress()
+//					.getHostName() + "+" + serverIP+ ".txt"));
+//				
+//			}else{
+//				try{
+//					File texting = new File("" + connection.getInetAddress().getHostName() + "+" + serverIP+ ".txt");
+//					writer = new BufferedWriter(new FileWriter(texting));
+//				}catch(IOException e){
+//					e.printStackTrace();
+//				}
+//			}
 			whileChatting();
 		}catch(EOFException eofException){
 			showMessage("\n Client terminated connection");
@@ -70,8 +120,25 @@ public class Client extends JFrame{
 		ableToType(true);
 		do{
 			try{
+//				File check = new File("" + connection.getInetAddress().getHostName() + "+" + serverIP+ ".txt");
+//				if(check.isFile()){
+//					writer = new BufferedWriter(new FileWriter("C:/Users/Student 8/git/symposium-clientside/SymposiumClientSide/"+connection.getInetAddress()
+//						.getHostName() + "+" + serverIP+ ".txt"));
+//					
+//				}else{
+//					try{
+//						File texting = new File("" + connection.getInetAddress().getHostName() + "+" + serverIP+ ".txt");
+//						writer = new BufferedWriter(new FileWriter(texting));
+//					}catch(IOException e){
+//						e.printStackTrace();
+//					}
+//				}
 				message = (String) input.readObject();
 				showMessage("\n" + message);
+//				System.out.println("beans");
+//				writer.write(message);
+//				System.out.println("cool");
+//				writer.close();
 			}catch(ClassNotFoundException classNotFoundException){
 				showMessage("\n I don't know that object type");
 			}
