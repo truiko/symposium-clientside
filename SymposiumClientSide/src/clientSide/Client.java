@@ -153,9 +153,9 @@ public class Client extends JFrame{
 	}
 	
 	private void sendImage() throws IOException{
-		//try (ServerSocket serv = new ServerSocket(25000)) {
-		 //     System.out.println("waiting...");
-		    //  try (connection = server.accept()) {
+		try (ServerSocket serv = new ServerSocket(25000)) {
+		      System.out.println("waiting...");
+		      try (Socket socket = serv.accept()) {
 		BufferedImage img = null;
 		JFileChooser fc = new JFileChooser();
 		int returnVal = fc.showOpenDialog(fc);
@@ -170,15 +170,53 @@ public class Client extends JFrame{
 		}
 		try{
 			img = ImageIO.read(new File(filePath));
-			System.out.println("read image");
+			System.out.println("made img variable");
 		}catch(Exception e){
 			e.printStackTrace();
 		}
         ImageIO.write(img, "jpg", connection.getOutputStream());
         //output.flush();
         System.out.println("sent");
-		     // }
-		//}
+		      }
+		}
+        
+      /*  try {
+
+            byte[] imageInByte;
+            BufferedImage originalImage1 = ImageIO.read(new File(filePath));
+
+            // convert BufferedImage to byte array
+            ByteArrayOutputStream baos1 = new ByteArrayOutputStream();
+            ImageIO.write(originalImage1, "jpg", baos1);
+            baos1.flush();
+            byte[] ba1 = baos1.toByteArray();
+            imageInByte = new byte[ba1.length];
+            //System.out.println(new String(imageInByte));
+            System.arraycopy(ba1, 0, imageInByte, 0, ba1.length);
+            //System.out.println(new String(imageInByte));
+            //System.out.println(new String(imageInByte));
+            baos1.close();
+
+            // convert byte array back to BufferedImage
+            InputStream in = new ByteArrayInputStream(imageInByte);
+
+            int w = Math.max(originalImage1.getWidth(), w);
+            //int h = Math.max(originalImage1.getHeight(), originalImage2.getHeight());
+            int h = originalImage1.getHeight();
+            BufferedImage bImageFromConvert = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+            //BufferedImage bImageFromConvert = new BufferedImage(w, h, BufferedImage.TYPE_4BYTE_ABGR );
+
+            //BufferedImage bImageFromConvert = ImageIO.read(in);
+
+            Graphics g = bImageFromConvert.getGraphics();
+            g.drawImage(originalImage1, 0, 0, null);
+
+            ImageIO.write(bImageFromConvert, "jpg", new File("result.jpg"));
+
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }*/
 	}
 	
 	private void receiveImage() throws IOException{
