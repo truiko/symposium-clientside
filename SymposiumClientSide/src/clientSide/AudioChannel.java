@@ -27,6 +27,7 @@ public class AudioChannel extends Thread {
 	private ArrayList<Message> query;
 	private long lastPacketTime = System.nanoTime();
 	private long lastPacketLength = SoundPacket.defaultDataLength;
+	private byte[] toPlay;
 	
 	
 	public AudioChannel(long chId){
@@ -85,7 +86,7 @@ public class AudioChannel extends Thread {
                                 }
                             }    
 	                        //play decompressed data
-	                        byte[] toPlay=baos.toByteArray();
+	                        toPlay=baos.toByteArray();
                             speaker.write(toPlay, 0, toPlay.length);
                             lastPacketLength = m.getData().length;
                             

@@ -16,7 +16,7 @@ public class Client extends JFrame{
 	private JButton micButton;
 	private ObjectOutputStream output;
 	private ObjectInputStream input;
-	private String message = "";
+	private Message message;
 	private String serverIP;
 	private Socket connection;
 	private MicThread st;
@@ -51,8 +51,6 @@ public class Client extends JFrame{
 		add(micButton, BorderLayout.SOUTH);
 		setSize(300,150);
 		setVisible(true);
-		
-//		listenForVoice();
 	}
 	
 	private void listenForVoice() {
@@ -121,10 +119,10 @@ public class Client extends JFrame{
 		ableToType(true);
 		do{
 			try{
-				message = (String) input.readObject();
+				message = (Message) input.readObject();
 				showMessage("\n" + message);
 			}catch(ClassNotFoundException classNotFoundException){
-				showMessage("\n I don't know that object type");
+				showMessage("\n Can't understand what that user sent!");
 			}
 		}while(!message.equals("SERVER - END"));
 	}

@@ -23,6 +23,9 @@ public class Message implements Serializable{
         this.timestamp = timestamp;
         this.data = data;
     }
+    public Message(){
+    	
+    }
 
     public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
