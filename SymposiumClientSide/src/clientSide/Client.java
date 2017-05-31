@@ -28,7 +28,8 @@ public class Client extends JFrame{
 				public void actionPerformed(ActionEvent event){
 					sendMessage(event.getActionCommand());
 					try {
-						writer = new BufferedWriter(new FileWriter("/SymposiumClientSide/127.0.0.1+127.0.0.1.txt"));
+						writer = new BufferedWriter(new FileWriter("C:/Users/Student 8/git/symposium-clientside/SymposiumClientSide/"+connection.getInetAddress()
+									.getHostName() + "+" + serverIP+ ".txt"));
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -56,6 +57,11 @@ public class Client extends JFrame{
 						writer.write(event.getActionCommand());
 						System.out.println(event.getActionCommand());
 						System.out.println("heyyyy");
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					try {
+						writer.close();
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
