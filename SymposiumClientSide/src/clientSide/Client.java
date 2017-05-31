@@ -166,7 +166,7 @@ public class Client extends JFrame{
 			System.out.println("got filepath");
 		}else{
 			System.out.println("User clicked CANCEL");
-			System.exit(1);
+			System.exit(1);//
 		}
 		try{
 			img = ImageIO.read(new File(filePath));
