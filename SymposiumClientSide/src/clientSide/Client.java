@@ -73,23 +73,6 @@ public class Client extends JFrame{
 		try{
 			connectToServer();
 			setupStreams();
-			//writer = null;
-//			File check = new File("" + connection.getInetAddress().getHostName() + "+" + serverIP+ ".txt");
-//			if (check.createNewFile()){
-//				System.out.println("yes");
-//			}
-//			if(check.exists()){
-//				writer = new BufferedWriter(new FileWriter("C:/Users/Student 8/git/symposium-clientside/SymposiumClientSide/"+connection.getInetAddress()
-//					.getHostName() + "+" + serverIP+ ".txt"));
-//				
-//			}else{
-//				try{
-//					File texting = new File("" + connection.getInetAddress().getHostName() + "+" + serverIP+ ".txt");
-//					writer = new BufferedWriter(new FileWriter(texting));
-//				}catch(IOException e){
-//					e.printStackTrace();
-//				}
-//			}
 			whileChatting();
 		}catch(EOFException eofException){
 			showMessage("\n Client terminated connection");
@@ -120,25 +103,8 @@ public class Client extends JFrame{
 		ableToType(true);
 		do{
 			try{
-//				File check = new File("" + connection.getInetAddress().getHostName() + "+" + serverIP+ ".txt");
-//				if(check.isFile()){
-//					writer = new BufferedWriter(new FileWriter("C:/Users/Student 8/git/symposium-clientside/SymposiumClientSide/"+connection.getInetAddress()
-//						.getHostName() + "+" + serverIP+ ".txt"));
-//					
-//				}else{
-//					try{
-//						File texting = new File("" + connection.getInetAddress().getHostName() + "+" + serverIP+ ".txt");
-//						writer = new BufferedWriter(new FileWriter(texting));
-//					}catch(IOException e){
-//						e.printStackTrace();
-//					}
-//				}
 				message = (String) input.readObject();
 				showMessage("\n" + message);
-//				System.out.println("beans");
-//				writer.write(message);
-//				System.out.println("cool");
-//				writer.close();
 			}catch(ClassNotFoundException classNotFoundException){
 				showMessage("\n I don't know that object type");
 			}
