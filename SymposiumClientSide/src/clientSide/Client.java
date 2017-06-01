@@ -153,9 +153,9 @@ public class Client extends JFrame{
 	}
 	
 	private void sendImage() throws IOException{
-		try (ServerSocket serv = new ServerSocket(25000)) {
-		      System.out.println("waiting...");
-		      try (Socket socket = serv.accept()) {
+		//try (ServerSocket serv = new ServerSocket(25000)) {
+		  //    System.out.println("waiting...");
+		 //     try (Socket socket = serv.accept()) {
 		BufferedImage img = null;
 		JFileChooser fc = new JFileChooser();
 		int returnVal = fc.showOpenDialog(fc);
@@ -177,8 +177,8 @@ public class Client extends JFrame{
         ImageIO.write(img, "jpg", connection.getOutputStream());
         //output.flush();
         System.out.println("sent");
-		      }
-		}
+		   //   }
+		//}
         
       /*  try {
 
