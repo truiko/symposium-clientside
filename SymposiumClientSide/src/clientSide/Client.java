@@ -40,7 +40,7 @@ public class Client extends JFrame{
 		userText.addActionListener(
 			new ActionListener(){
 				public void actionPerformed(ActionEvent event){
-					sendMessage(event.getActionCommand());
+					sendMessage((new Message(event.getActionCommand())));
 					userText.setText("");
 				}
 			}
@@ -119,12 +119,12 @@ public class Client extends JFrame{
 		ableToType(true);
 		do{
 			try{
-				message = (Message) input.readObject();
-				showMessage("\n" + message);
+				message = (new Message(input.readObject()));
+				showMessage("\n" + message.getData());
 			}catch(ClassNotFoundException classNotFoundException){
 				showMessage("\n Can't understand what that user sent!");
 			}
-		}while(!message.equals("SERVER - END"));
+		}while(!message.getData().equals("SERVER - END"));
 	}
 	
 	private void startMic() {
@@ -153,11 +153,16 @@ public class Client extends JFrame{
 	}
 	
 	//send messages to the server
-	private void sendMessage(String message){
+	private void sendMessage(Message message){
 		try{
-			output.writeObject("CLIENT - " + message);
+			if(message.getData() instanceof String){
+				output.writeObject("CLIENT - " + message.getData());
+				showMessage("\nCLIENT -" + message.getData());
+			}else{
+				output.writeObject(message.getData());
+			}
 			output.flush();
-			showMessage("\nCLIENT -" + message);
+			
 		}catch(IOException ioException){
 			chatWindow.append("\n Something went wrong when sending message!");
 		}
