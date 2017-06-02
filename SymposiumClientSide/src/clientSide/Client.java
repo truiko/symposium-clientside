@@ -68,6 +68,7 @@ public class Client extends JFrame{
 		try{
 			connectToServer();
 			setupStreams();
+			receiveImage();
 			whileChatting();
 		}catch(EOFException eofException){
 			showMessage("\n Client terminated connection");
@@ -103,7 +104,7 @@ public class Client extends JFrame{
 			}catch(ClassNotFoundException classNotFoundException){
 				showMessage("\n I don't know that object type");
 			}
-		}while(!message.equals("SERVER - END"));
+		}while(message instanceof String && !message.equals("SERVER - END"));
 	}
 	
 	//close the streams and sockets
@@ -221,13 +222,29 @@ public class Client extends JFrame{
 	}
 	
 	private void receiveImage() throws IOException{
-		BufferedImage image = ImageIO.read(connection.getInputStream());
-	      System.out.println("got image");
-	      JLabel label = new JLabel(new ImageIcon(image));
-	      JFrame f = new JFrame("Image sent from server");
-	      f.getContentPane().add(label);
-	      f.pack();
-	      f.setVisible(true);
-	      System.out.println("image is displayed");
+		boolean running = true;
+//		System.out.println("initiating receival of image");
+//		BufferedImage image = ImageIO.read(input);
+//	      System.out.println("got image");
+//	      JLabel label = new JLabel(new ImageIcon(image));
+//	      JFrame f = new JFrame("Image sent from server");
+//	      f.getContentPane().add(label);
+//	      f.pack();
+//	      f.setVisible(true);
+//	      System.out.println("image is displayed");
+		
+	      
+	      do{
+				System.out.println("initiating receival of image");
+				BufferedImage image = ImageIO.read(input);
+				  System.out.println("got image");
+				  JLabel label = new JLabel(new ImageIcon(image));
+				  JFrame f = new JFrame("Image sent from server");
+				  f.getContentPane().add(label);
+				  f.pack();
+				  f.setVisible(true);
+				  System.out.println("image is displayed");
+				  running = false;
+			}while(running);
 	}
 }
