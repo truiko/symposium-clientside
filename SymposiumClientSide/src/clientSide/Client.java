@@ -3,6 +3,7 @@ package clientSide;
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -21,6 +22,7 @@ public class Client extends JFrame{
 	private Socket connection;
 	private MicThread st;
 	private ArrayList<AudioChannel> chs = new ArrayList<AudioChannel>();
+	private BufferedWriter writer;
 	
 	public Client(String host) {
 		super("Symposium Client");
@@ -41,6 +43,37 @@ public class Client extends JFrame{
 			new ActionListener(){
 				public void actionPerformed(ActionEvent event){
 					sendMessage((new Message(event.getActionCommand())));
+					File check = new File("" + connection.getInetAddress().getHostName() + "+" + serverIP+ ".txt");
+					if(check.isFile()){
+						try {
+							writer = new BufferedWriter(new FileWriter("C:/Users/Student 8/git/symposium-clientside/SymposiumClientSide/"+connection.getInetAddress()
+									.getHostName() + "+" + serverIP+ ".txt", true));
+							System.out.println("hello");
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+						
+					}else{
+						try{
+							File texting = new File("" + connection.getInetAddress().getHostName() + "+" + serverIP+ ".txt");
+							writer = new BufferedWriter(new FileWriter(texting, true));
+							System.out.println("its me");
+						}catch(IOException e){
+							e.printStackTrace();
+						}
+					}
+					try {
+						writer.write(event.getActionCommand() + "\r\n");
+						System.out.println(event.getActionCommand());
+						System.out.println("heyyyy");
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					try {
+						writer.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 					userText.setText("");
 				}
 			}
