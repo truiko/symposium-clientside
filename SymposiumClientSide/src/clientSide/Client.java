@@ -105,7 +105,7 @@ public class Client extends JFrame{
 			try{
 				//message = (String) input.readObject();
 				message = (new Message(input.readObject()));
-				showMessage("\n" + message);
+				showMessage("\n" + message.getData());
 			}catch(ClassNotFoundException classNotFoundException){
 				showMessage("\n I don't know that object type");
 			}
