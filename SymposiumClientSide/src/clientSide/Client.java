@@ -7,6 +7,10 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+//- Be able to access both ip's from both classes
+//- Interchange file names with server ip first or client ip first
+
+
 public class Client extends JFrame{
 
 	private JTextField userText;
@@ -30,9 +34,9 @@ public class Client extends JFrame{
 					File check = new File("" + connection.getInetAddress().getHostName() + "+" + serverIP+ ".txt");
 					if(check.isFile()){
 						try {
-							writer = new BufferedWriter(new FileWriter("C:/Users/Student 8/git/symposium-clientside/SymposiumClientSide/"+connection.getInetAddress()
-									.getHostName() + "+" + serverIP+ ".txt", true));
-							System.out.println("hello");
+							writer = new BufferedWriter(new FileWriter("C:/Users/Student 8/git/symposium-clientside/"
+									+ "SymposiumClientSide/"+connection.getInetAddress().getHostName() + "+" 
+									+ serverIP+ ".txt", true));
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
@@ -41,15 +45,13 @@ public class Client extends JFrame{
 						try{
 							File texting = new File("" + connection.getInetAddress().getHostName() + "+" + serverIP+ ".txt");
 							writer = new BufferedWriter(new FileWriter(texting, true));
-							System.out.println("its me");
 						}catch(IOException e){
 							e.printStackTrace();
 						}
 					}
 					try {
-						writer.write(event.getActionCommand() + "\r\n");
+						writer.write("Client: " + event.getActionCommand() + "\r\n");
 						System.out.println(event.getActionCommand());
-						System.out.println("heyyyy");
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -155,5 +157,9 @@ public class Client extends JFrame{
 				}
 			}
 		);		
+	}
+	
+	public String getServerIP(){
+		return connection.getInetAddress().getHostAddress();
 	}
 }
