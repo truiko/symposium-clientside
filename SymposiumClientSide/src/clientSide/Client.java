@@ -16,10 +16,12 @@ public class Client extends JFrame{
 	private JTextPane pane;
 	private ObjectOutputStream output;
 	private ObjectInputStream input;
-	private String message = "";
+	//private String message = "";
 	private String serverIP;
 	private Socket connection;
 	private JButton attachment;
+	
+	private Message message;
 	
 	public Client(String host) {
 		super("Symposium Client");
@@ -30,7 +32,9 @@ public class Client extends JFrame{
 		userText.addActionListener(
 			new ActionListener(){
 				public void actionPerformed(ActionEvent event){
-					sendMessage(event.getActionCommand());
+					//sendMessage(event.getActionCommand());
+					
+					sendMessage((new Message(event.getActionCommand())));
 					userText.setText("");
 				}
 			}
@@ -68,7 +72,7 @@ public class Client extends JFrame{
 		try{
 			connectToServer();
 			setupStreams();
-			receiveImage();
+			//receiveImage();
 			whileChatting();
 		}catch(EOFException eofException){
 			showMessage("\n Client terminated connection");
@@ -99,12 +103,13 @@ public class Client extends JFrame{
 		ableToType(true);
 		do{
 			try{
-				message = (String) input.readObject();
+				//message = (String) input.readObject();
+				message = (new Message(input.readObject()));
 				showMessage("\n" + message);
 			}catch(ClassNotFoundException classNotFoundException){
 				showMessage("\n I don't know that object type");
 			}
-		}while(message instanceof String && !message.equals("SERVER - END"));
+		}while(!message.getData().equals("SERVER - END"));
 	}
 	
 	//close the streams and sockets
@@ -121,11 +126,19 @@ public class Client extends JFrame{
 	}
 	
 	//send messages to the server
-	private void sendMessage(String message){
+	private void sendMessage(Message message){
 		try{
-			output.writeObject("CLIENT - " + message);
+//			output.writeObject("CLIENT - " + message);
+//			output.flush();
+//			showMessage("\nCLIENT -" + message);
+			
+			if(message.getData() instanceof String){
+				output.writeObject("CLIENT - " + message.getData());
+				showMessage("\nCLIENT -" + message.getData());
+			}else{
+				output.writeObject(message.getData());
+			}
 			output.flush();
-			showMessage("\nCLIENT -" + message);
 		}catch(IOException ioException){
 			chatWindow.append("\n Something went wrong when sending message!");
 		}
@@ -181,6 +194,10 @@ public class Client extends JFrame{
         System.out.println("sent");
 		     // }
 		//}
+        
+//        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//        ImageIO.write(img, "jpg", baos);
+//        byte[] bytes = baos.toByteArray();
         
       /*  try {
 
