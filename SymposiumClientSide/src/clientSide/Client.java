@@ -10,6 +10,7 @@ import java.awt.event.*;
 import javax.sound.sampled.LineUnavailableException;
 import javax.swing.*;
 
+
 public class Client extends JFrame{
 
 	private JTextField userText;
@@ -34,7 +35,6 @@ public class Client extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				startMic();	
-				listenForVoice();
 			}
 			
 		});
@@ -153,9 +153,15 @@ public class Client extends JFrame{
 		do{
 			try{
 				message = (new Message(input.readObject()));
-				showMessage("\n" + message.getData());
-			}catch(ClassNotFoundException classNotFoundException){
+				if(message.getData() instanceof String){
+					showMessage("\n" + message.getData());
+				}else{ 
+					listenForVoice();
+				}
+			}catch(Exception e){
 				showMessage("\n Can't understand what that user sent!");
+				e.printStackTrace();
+				System.exit(1);
 			}
 		}while(!message.getData().equals("SERVER - END"));
 	}
@@ -190,6 +196,7 @@ public class Client extends JFrame{
 		try{
 			if(message.getData() instanceof String){
 				output.writeObject("CLIENT - " + message.getData());
+				System.out.println("sent");
 				showMessage("\nCLIENT -" + message.getData());
 			}else{
 				output.writeObject(message.getData());
