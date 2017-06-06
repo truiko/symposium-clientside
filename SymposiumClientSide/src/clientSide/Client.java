@@ -30,7 +30,7 @@ public class Client extends JFrame{
 		userText.addActionListener(
 			new ActionListener(){
 				public void actionPerformed(ActionEvent event){
-					sendMessage(event.getActionCommand());
+					sendMessage(event.getActionCommand());//server       client
 					File check = new File("" + connection.getInetAddress().getHostName() + "+" + serverIP+ ".txt");
 					if(check.isFile()){
 						try {
