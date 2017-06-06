@@ -59,6 +59,7 @@ public class NewUser extends JFrame {
 
 	  create.addActionListener(new ActionListener() {
 		  public void actionPerformed(ActionEvent e) {
+			  boolean check = false;
 			  try {
 				  File file = new File("userPass.txt");
 				  Scanner scan = new Scanner(file);;
@@ -69,27 +70,38 @@ public class NewUser extends JFrame {
 				  String passtxter = " ";
 				  String punamer = txuserer.getText();
 				  String ppaswder = passer.getText();
-				  while (scan.hasNext()) {
-					  usertxter = scan.nextLine();
-					  passtxter = scan.nextLine();
-				  }	
 
-				  if(punamer.equals(usertxter) && ppaswder.equals(passtxter)) {
-					  JOptionPane.showMessageDialog(null,"Username is already in use");
-					  txuserer.setText("");
-					  passer.setText("");
-					  txuserer.requestFocus();
-
-				  } 
-				  else if(punamer.equals("") && ppaswder.equals("")){
+				 if(punamer.equals("") && ppaswder.equals("")){
 					  JOptionPane.showMessageDialog(null,"Please insert Username and Password");
 				  }
-				  else {
+				 else{
+					 while (scan.hasNext()) {
+					  usertxter = scan.nextLine();
+					  passtxter = scan.nextLine();
+					  if(punamer.equals(usertxter)) {
+						  JOptionPane.showMessageDialog(null,"Username is already in use");
+						  txuserer.setText("");
+						  passer.setText("");
+						  txuserer.requestFocus();
+						  check = true;
+						  break;
+					  } 
+					 }
+				 }
+				  if (check == false) {
 					  filewrite.write(punamer+"\r\n" +ppaswder+ "\r\n");
 					  filewrite.close();
 					  JOptionPane.showMessageDialog(null,"Account has been created.");
 					  dispose();
 					  Login log = new Login();
+					  //add new txt files
+					  Scanner scan2 = new Scanner(file);
+					  while(scan2.hasNext()){
+						  String username = scan2.nextLine();
+						  String password = scan2.nextLine();
+						  System.out.println(username);
+						  File newChat = new File("" + username + "+" + punamer + ".txt");
+					  }
 				  }
 			  } catch (IOException d) {
 				  d.printStackTrace();
