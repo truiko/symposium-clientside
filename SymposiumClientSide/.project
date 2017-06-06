@@ -20,5 +20,10 @@
 			<type>1</type>
 			<location>C:/Users/Period82.0/Downloads/java-json.jar/java-json.jar</location>
 		</link>
+		<link>
+			<name>src/EmojiLibrary/OpenSansEmoji.otf</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/Downloads/OpenSansEmoji.otf</locationURI>
+		</link>
 	</linkedResources>
 </projectDescription>
