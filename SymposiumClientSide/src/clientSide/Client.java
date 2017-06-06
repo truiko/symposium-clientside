@@ -203,7 +203,7 @@ public class Client extends JFrame{
 //        //output.flush();
 //        System.out.println("sent");
         
-		     // }
+		     // }//
 		//}
         
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
