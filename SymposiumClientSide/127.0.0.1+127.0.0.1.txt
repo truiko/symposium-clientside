@@ -1,6 +1,3 @@
-Client: hi
-Client: wassup
-Client: its all good right
-Client: END
-Client: eyyyyyy
-Client: END
+Client: fe
+Client: ges
+Client: gsr

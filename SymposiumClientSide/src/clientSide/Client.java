@@ -50,8 +50,10 @@ public class Client extends JFrame{
 						}
 					}
 					try {
-						writer.write("Client: " + event.getActionCommand() + "\r\n");
-						System.out.println(event.getActionCommand());
+						if (!event.getActionCommand().equals("END")){
+							writer.write("Client: " + event.getActionCommand() + "\r\n");
+							System.out.println(event.getActionCommand());
+						}
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
