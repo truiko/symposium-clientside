@@ -190,25 +190,25 @@ public class Client extends JFrame{
 			System.out.println("got filepath");
 		}else{
 			System.out.println("User clicked CANCEL");
-			System.exit(1);
+			//System.exit(1);
 		}
-//		try{
-//			img = ImageIO.read(new File(filePath));
-//			System.out.println("made img variable");
-//		}catch(Exception e){
-//			e.printStackTrace();
-//		}
-//        ImageIO.write(img, "jpg", output);
-//        output.writeObject(null);
-//        //output.flush();
-//        System.out.println("sent");
+		try{
+			img = ImageIO.read(new File(filePath));
+			System.out.println("made img variable");
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+        ImageIO.write(img, "jpg", output);
+        output.writeObject(null);
+        //output.flush();
+        System.out.println("sent");
         
 		     // }//
 		//}
         
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ImageIO.write(img, "jpg", baos);
-        byte[] bytes = baos.toByteArray();
+        //ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        //ImageIO.write(img, "jpg", baos);
+        //byte[] bytes = baos.toByteArray();
         //output.writeObject(null);
         
 //        try {
