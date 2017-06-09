@@ -82,7 +82,7 @@ public class Client extends JFrame{
 		chatWindow = new JTextArea();
 		add(new JScrollPane(chatWindow), BorderLayout.CENTER);
 		add(micButton, BorderLayout.SOUTH);
-		setSize(300,150);
+		setSize(500,500);
 		setVisible(true);
 	}
 	
