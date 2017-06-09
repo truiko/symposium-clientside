@@ -209,6 +209,13 @@ public class Client extends JFrame{
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ImageIO.write(img, "jpg", baos);
         byte[] bytes = baos.toByteArray();
+        BufferedImage img1 = ImageIO.read(new ByteArrayInputStream(bytes));
+        JLabel label = new JLabel(new ImageIcon(img1));
+		 JFrame f = new JFrame("Image sent from client");
+		 f.getContentPane().add(label);
+		 f.pack();
+		 f.setVisible(true);
+        //output.writeObject(bytes);
         //output.writeObject(null);
         
 //        try {
@@ -248,9 +255,15 @@ public class Client extends JFrame{
 //            System.out.println(e.getMessage());
 //        }
 //    }
+        
+        
+        
 	}
 	
 	private void receiveImage() throws IOException{
+		
+		
+		
 		boolean running = true;
 //		System.out.println("initiating receival of image");
 //		BufferedImage image = ImageIO.read(input);
