@@ -190,22 +190,23 @@ public class Client extends JFrame{
 			System.out.println("got filepath");
 		}else{
 			System.out.println("User clicked CANCEL");
-			System.exit(1);
+			//System.exit(1);
 		}
-//		try{
-//			img = ImageIO.read(new File(filePath));
-//			System.out.println("made img variable");
-//		}catch(Exception e){
-//			e.printStackTrace();
-//		}
-//        ImageIO.write(img, "jpg", output);
-//        output.writeObject(null);
-//        //output.flush();
-//        System.out.println("sent");
+		try{
+			img = ImageIO.read(new File(filePath));
+			System.out.println("made img variable");
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+        ImageIO.write(img, "jpg", output);
+        output.writeObject(null);
+        //output.flush();
+        System.out.println("sent");
         
 		     // }//
 		//}
         
+<<<<<<< HEAD
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ImageIO.write(img, "jpg", baos);
         byte[] bytes = baos.toByteArray();
@@ -216,6 +217,11 @@ public class Client extends JFrame{
 		 f.pack();
 		 f.setVisible(true);
         //output.writeObject(bytes);
+=======
+        //ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        //ImageIO.write(img, "jpg", baos);
+        //byte[] bytes = baos.toByteArray();
+>>>>>>> branch 'mahin' of https://github.com/truiko/symposium-clientside.git
         //output.writeObject(null);
         
 //        try {
