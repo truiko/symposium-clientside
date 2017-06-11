@@ -22,7 +22,7 @@ public class Client extends JFrame{
 	private String serverIP;
 	private Socket connection;
 	private MicThread st;
-	private ArrayList<AudioChannel> chs = new ArrayList<AudioChannel>();
+	private ArrayList<AudioChannel> channels = new ArrayList<AudioChannel>();
 	private BufferedWriter writer;
 	
 	public Client(String host) {
@@ -43,37 +43,37 @@ public class Client extends JFrame{
 			new ActionListener(){
 				public void actionPerformed(ActionEvent event){
 					sendMessage((new Message(event.getActionCommand())));
-					File check = new File("" + connection.getInetAddress().getHostName() + "+" + serverIP+ ".txt");
-					if(check.isFile()){
-						try {
-							writer = new BufferedWriter(new FileWriter("C:/Users/Student 8/git/symposium-clientside/SymposiumClientSide/"+connection.getInetAddress()
-									.getHostName() + "+" + serverIP+ ".txt", true));
-							System.out.println("hello");
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-						
-					}else{
-						try{
-							File texting = new File("" + connection.getInetAddress().getHostName() + "+" + serverIP+ ".txt");
-							writer = new BufferedWriter(new FileWriter(texting, true));
-							System.out.println("its me");
-						}catch(IOException e){
-							e.printStackTrace();
-						}
-					}
-					try {
-						writer.write(event.getActionCommand() + "\r\n");
-						System.out.println(event.getActionCommand());
-						System.out.println("heyyyy");
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-					try {
-						writer.close();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
+//					File check = new File("" + connection.getInetAddress().getHostName() + "+" + serverIP+ ".txt");
+//					if(check.isFile()){
+//						try {
+//							writer = new BufferedWriter(new FileWriter("C:/Users/Student 8/git/symposium-clientside/SymposiumClientSide/"+connection.getInetAddress()
+//									.getHostName() + "+" + serverIP+ ".txt", true));
+//							System.out.println("hello");
+//						} catch (IOException e) {
+//							e.printStackTrace();
+//						}
+//						
+//					}else{
+//						try{
+//							File texting = new File("" + connection.getInetAddress().getHostName() + "+" + serverIP+ ".txt");
+//							writer = new BufferedWriter(new FileWriter(texting, true));
+//							System.out.println("its me");
+//						}catch(IOException e){
+//							e.printStackTrace();
+//						}
+//					}
+//					try {
+//						writer.write(event.getActionCommand() + "\r\n");
+//						System.out.println(event.getActionCommand());
+//						System.out.println("heyyyy");
+//					} catch (IOException e) {
+//						e.printStackTrace();
+//					}
+//					try {
+//						writer.close();
+//					} catch (IOException e) {
+//						e.printStackTrace();
+//					}
 					userText.setText("");
 				}
 			}
@@ -86,35 +86,32 @@ public class Client extends JFrame{
 		setVisible(true);
 	}
 	
-	private void listenForVoice() {
-		while(true){
-			try {
-				if(connection.getInputStream().available() > 0){
-					Message sound = (Message)(input.readObject());
-					AudioChannel sendTo = null;
-					for (AudioChannel ch : chs) {
-                        if (ch.getChId() == sound.getChId()) {
-                            sendTo = ch;
-                        }
-                    }
-                    if (sendTo != null) {
-                        sendTo.addToQueue(sound);
-                    } else { //new AudioChannel is needed
-                        AudioChannel ch = new AudioChannel(sound.getChId());
-                        ch.addToQueue(sound);
-                        ch.start();
-                        chs.add(ch);
-                    }
-                }else{ //see if some channels need to be killed and kill them
-                    ArrayList<AudioChannel> killMe=new ArrayList<AudioChannel>();
-                    for(AudioChannel c:chs) if(c.canKill()) killMe.add(c);
-                    for(AudioChannel c:killMe){c.closeAndKill(); chs.remove(c);}
-                    Utils.sleep(1); //avoid busy wait
-                }
-					
-			}catch (IOException | ClassNotFoundException e) {
-				e.printStackTrace();
+	private void playbackSound(Message sound) {
+		try {
+			if(connection.getInputStream().available() > 0){
+				AudioChannel sendTo = null;
+				for(AudioChannel channel: channels){
+					if(channel.getChId() == sound.getChId()){
+						sendTo = channel;	
+					}
+				}
+				if(sendTo != null){
+					sendTo.addToQueue(sound);
+				}else{
+					AudioChannel channel = new AudioChannel(sound.getChId());
+					channel.addToQueue(sound);
+					channel.start();
+					channels.add(channel);
+				}
+			}else{
+				ArrayList<AudioChannel> killMe=new ArrayList<AudioChannel>();
+                for(AudioChannel c:channels) if(c.canKill()) killMe.add(c);
+                for(AudioChannel c:killMe){c.closeAndKill(); channels.remove(c);}
+                Utils.sleep(1); //avoid busy wait
 			}
+					
+		}catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -156,7 +153,9 @@ public class Client extends JFrame{
 				if(message.getData() instanceof String){
 					showMessage("\n" + message.getData());
 				}else{ 
-					listenForVoice();
+					if(message.getData() instanceof byte[]){
+						playbackSound(message);
+					}
 				}
 			}catch(Exception e){
 				showMessage("\n Can't understand what that user sent!");

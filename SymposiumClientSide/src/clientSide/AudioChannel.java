@@ -72,8 +72,8 @@ public class AudioChannel extends Thread {
 					}else{
 						lastPacketTime = System.nanoTime();
 	                    Message message = query.remove(0);;
-	                    if (message.getData() instanceof SoundPacket) { //it's a sound packet, send it to sound card
-	                        SoundPacket m = (SoundPacket) (message.getData());
+	                    if (message.getData() instanceof byte[]) { //it's a sound packet, send it to sound card
+	                        SoundPacket m = new SoundPacket((byte[]) message.getData());
 	                        //decompress data
 	                        GZIPInputStream gis = new GZIPInputStream(new ByteArrayInputStream(m.getData()));
 	                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
