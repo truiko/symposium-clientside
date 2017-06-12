@@ -75,6 +75,7 @@ public class Client extends JFrame{
 			//receiveImage();
 			whileChatting();
 		}catch(EOFException eofException){
+			eofException.printStackTrace();
 			showMessage("\n Client terminated connection");
 		}catch(IOException ioException){
 			ioException.printStackTrace();

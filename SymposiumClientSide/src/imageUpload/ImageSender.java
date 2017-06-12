@@ -23,6 +23,7 @@ public class ImageSender {
 				BufferedImage img = null;
 				try{
 					img = ImageIO.read(new File(filePath));
+					//BufferedImage s = new Bu
 				}catch(Exception e){
 					e.printStackTrace();
 				}
