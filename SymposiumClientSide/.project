@@ -21,9 +21,9 @@
 			<location>C:/Users/Period82.0/Downloads/java-json.jar/java-json.jar</location>
 		</link>
 		<link>
-			<name>src/EmojiLibrary/OpenSansEmoji.otf</name>
+			<name>src/EmojiLibrary/OpenSansEmoji.ttf</name>
 			<type>1</type>
-			<locationURI>PARENT-3-PROJECT_LOC/Downloads/OpenSansEmoji.otf</locationURI>
+			<locationURI>PARENT-3-PROJECT_LOC/Downloads/OpenSansEmoji.ttf</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>
