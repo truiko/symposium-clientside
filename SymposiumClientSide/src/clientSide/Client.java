@@ -199,6 +199,7 @@ public class Client extends JFrame{
 			e.printStackTrace();
 		}
         ImageIO.write(img, "jpg", output);
+        //output.flush();
         output.writeObject(null);
         //output.flush();
         System.out.println("sent");
