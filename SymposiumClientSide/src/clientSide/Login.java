@@ -81,11 +81,16 @@ public class Login extends JFrame {
           			String ppaswd = pass.getText();
 
 
+          			if(puname.equals("") && ppaswd.equals("")){
+          				JOptionPane.showMessageDialog(null,"Please insert Username and Password");
+          			}
+          			boolean c = false;
           			while (scan.hasNext()) {
           				usertxt = scan.nextLine();
           				passtxt = scan.nextLine();
 						if(puname.equals(usertxt) && ppaswd.equals(passtxt)) {
-						        Client client;
+						    c = true;    
+							Client client;
 				  				try{
 						          	client = new Client("127.0.0.1");
 						          	client.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -102,11 +107,13 @@ public class Login extends JFrame {
 						          		ex.printStackTrace();
 						          }
 						          		setVisible(false);
-						  } 
-					if(puname.equals("") && ppaswd.equals("")){
-          				JOptionPane.showMessageDialog(null,"Please insert Username and Password");
+						          		break;
+						  }
           			}
-          			else {
+//					if(puname.equals("") && ppaswd.equals("")){
+//          				JOptionPane.showMessageDialog(null,"Please insert Username and Password");
+//          			}
+          			if (c == false) {
           				JOptionPane.showMessageDialog(null,"Wrong Username / Password");
           				txuser.setText("");
           				pass.setText("");
@@ -115,7 +122,7 @@ public class Login extends JFrame {
 
 
 
-				} catch (IOException d) {
+          			} catch (IOException d) {
 					d.printStackTrace();
 				}
 
