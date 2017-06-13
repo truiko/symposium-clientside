@@ -34,7 +34,7 @@ public class Client extends JFrame{
 					File check = new File("" + connection.getInetAddress().getHostName() + "+" + serverIP+ ".txt");
 					if(check.isFile()){
 						try {
-							writer = new BufferedWriter(new FileWriter("C:/Users/Student 8/git/symposium-clientside/"
+							writer = new BufferedWriter(new FileWriter("C:/Users/" + System.getProperty("user.name") + "/git/symposium-clientside/"
 									+ "SymposiumClientSide/"+connection.getInetAddress().getHostName() + "+" 
 									+ serverIP+ ".txt", true));
 						} catch (IOException e) {
