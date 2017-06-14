@@ -183,7 +183,7 @@ public class Client extends JFrame{
 			try{
 				message = (new Message(input.readObject()));
 				if(message.getData() instanceof String){
-//					message.setData(convertToEmoji((String) message.getData()));
+					message.setData(convertToEmoji((String) message.getData()));
 					showMessage("\n" + message.getData());
 				}else{ 
 					if(message.getData() instanceof byte[]){
