@@ -95,27 +95,27 @@ public class Client extends JFrame{
 		setSize(500,500);
 		setVisible(true);
 		
-		pane.setPreferredSize(new Dimension(50, 50));
-		add(new JScrollPane(pane), BorderLayout.WEST);
-		pane.setVisible(true);
-		//pane.insertIcon(new ImageIcon("src/resources/redcolor.jpg"));
-		//pane.insertIcon(new ImageIcon("src/resources/Desert.jpg"));
-		//((JTextPane) chatWindow).insertIcon(new ImageIcon("src/resources/redcolor.jpg"));
-		attachment = new JButton("Attachment");
-		attachment.setSize(1,1);
-		add(attachment, BorderLayout.EAST);
-		attachment.setVisible(true);
-		
-		attachment.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				try {
-					sendImage();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-		});
+//		pane.setPreferredSize(new Dimension(50, 50));
+//		add(new JScrollPane(pane), BorderLayout.WEST);
+//		pane.setVisible(true);
+//		//pane.insertIcon(new ImageIcon("src/resources/redcolor.jpg"));
+//		//pane.insertIcon(new ImageIcon("src/resources/Desert.jpg"));
+//		//((JTextPane) chatWindow).insertIcon(new ImageIcon("src/resources/redcolor.jpg"));
+//		attachment = new JButton("Attachment");
+//		attachment.setSize(1,1);
+//		add(attachment, BorderLayout.EAST);
+//		attachment.setVisible(true);
+//		
+//		attachment.addActionListener(new ActionListener(){
+//			public void actionPerformed(ActionEvent e){
+//				try {
+//					sendImage();
+//				} catch (IOException e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				}
+//			}
+//		});
 	}
 	
 	private void playbackSound(Message sound) {
@@ -183,7 +183,7 @@ public class Client extends JFrame{
 			try{
 				message = (new Message(input.readObject()));
 				if(message.getData() instanceof String){
-					message.setData(convertToEmoji((String) message.getData()));
+//					message.setData(convertToEmoji((String) message.getData()));
 					showMessage("\n" + message.getData());
 				}else{ 
 					if(message.getData() instanceof byte[]){
