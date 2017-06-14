@@ -50,7 +50,10 @@ public class Message implements Serializable{
     public long getTtl() {
         return ttl;
     }
-    public void setTtl(long ttl) {
+    public void setData(Object data) {
+		this.data = data;
+	}
+	public void setTtl(long ttl) {
         this.ttl = ttl;
     }
     
