@@ -1,4 +1,20 @@
+<<<<<<< HEAD
 Client: hi
 Client: wassup
 Client: its all good right
 Client: END
+=======
+fea
+
+gsda
+f
+sd
+aa
+asdas
+dasdas
+dasd
+heldasd
+dsadas
+hello
+dasdas
+>>>>>>> refs/heads/victor
