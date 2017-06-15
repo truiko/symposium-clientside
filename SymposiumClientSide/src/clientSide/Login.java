@@ -110,9 +110,6 @@ public class Login extends JFrame {
 						          		break;
 						  }
           			}
-//					if(puname.equals("") && ppaswd.equals("")){
-//          				JOptionPane.showMessageDialog(null,"Please insert Username and Password");
-//          			}
           			if (c == false) {
           				JOptionPane.showMessageDialog(null,"Wrong Username / Password");
           				txuser.setText("");
