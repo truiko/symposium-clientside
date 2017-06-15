@@ -21,3 +21,22 @@ Client: no
 Server: yes
 Client: no
 Server: yes
+Client: hey
+Client: whats up
+Client: why cant i end the conversation properly
+Server: funny stuffs tho
+Server: ill try
+Client: hi
+Client: uhh
+Client: interseting
+Client: hey
+Server: HI
+Conversation ended: 2017-06-15T11:52:17.924
+Client: so
+Client: imma end it now
+Conversation ended: 2017-06-15T11:53:58.414
+Client: grr
+Conversation ended: 2017-06-15T12:06:59.710
+Client: J
+Client: so
+Server: yep
