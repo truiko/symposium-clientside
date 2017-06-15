@@ -64,13 +64,13 @@ public class Client extends JFrame{
 					File check = new File("" + connection.getInetAddress().getHostAddress() + "+" + clientIP+ ".txt");
 					if(check.isFile()){
 						try {//for windows
-							writer = new BufferedWriter(new FileWriter("C:/Users/" + System.getProperty("user.name") + "/git/symposium-clientside/"
-							+ "SymposiumClientSide/"+connection.getInetAddress().getHostName() + "+" 
-							+ serverIP+ ".txt", true));
+//							writer = new BufferedWriter(new FileWriter("C:/Users/" + System.getProperty("user.name") + "/git/symposium-clientside/"
+//							+ "SymposiumClientSide/"+connection.getInetAddress().getHostName() + "+" 
+//							+ serverIP+ ".txt", true));
 							//for mac
-//							writer = new BufferedWriter(new FileWriter("/Users/" + System.getProperty("user.name") + "/git/symposium-clientside/"
-//									+ "SymposiumClientSide/"+connection.getInetAddress().getHostAddress() + "+" 
-//									+ clientIP+ ".txt", true));
+							writer = new BufferedWriter(new FileWriter("/Users/" + System.getProperty("user.name") + "/git/symposium-clientside/"
+									+ "SymposiumClientSide/"+connection.getInetAddress().getHostAddress() + "+" 
+									+ clientIP+ ".txt", true));
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
