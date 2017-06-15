@@ -2,6 +2,7 @@ package clientSide;
 
 import java.io.*;
 import java.net.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.awt.*;
@@ -34,6 +35,7 @@ public class Client extends JFrame{
 	private BufferedWriter writer;
 	private JButton attachment;
 	private JTextPane pane;
+	private String clientIP;
 	
 	public Client(String host) {
 		super("Symposium Client");
@@ -52,38 +54,51 @@ public class Client extends JFrame{
 		userText.addActionListener(
 			new ActionListener(){
 				public void actionPerformed(ActionEvent event){
-					sendMessage((new Message(event.getActionCommand())));
-//					File check = new File("" + connection.getInetAddress().getHostName() + "+" + serverIP+ ".txt");
-//					if(check.isFile()){
-//						try {
-//							writer = new BufferedWriter(new FileWriter("C:/Users/Student 8/git/symposium-clientside/SymposiumClientSide/"+connection.getInetAddress()
-//									.getHostName() + "+" + serverIP+ ".txt", true));
-//							System.out.println("hello");
-//						} catch (IOException e) {
-//							e.printStackTrace();
-//						}
-//						
-//					}else{
-//						try{
-//							File texting = new File("" + connection.getInetAddress().getHostName() + "+" + serverIP+ ".txt");
-//							writer = new BufferedWriter(new FileWriter(texting, true));
-//							System.out.println("its me");
-//						}catch(IOException e){
-//							e.printStackTrace();
-//						}
-//					}
-//					try {
-//						writer.write(event.getActionCommand() + "\r\n");
-//						System.out.println(event.getActionCommand());
-//						System.out.println("heyyyy");
-//					} catch (IOException e) {
-//						e.printStackTrace();
-//					}
-//					try {
-//						writer.close();
-//					} catch (IOException e) {
-//						e.printStackTrace();
-//					}
+					Message reply = new Message(event.getActionCommand());
+					sendMessage(reply);//server       client
+					try {
+						clientIP = InetAddress.getLocalHost().getHostAddress();
+					} catch (UnknownHostException e1) {
+						e1.printStackTrace();
+					}
+					File check = new File("" + connection.getInetAddress().getHostAddress() + "+" + clientIP+ ".txt");
+					if(check.isFile()){
+						try {//for windows
+//											writer = new BufferedWriter(new FileWriter("C:/Users/" + System.getProperty("user.name") + "/git/symposium-clientside/"
+//													+ "SymposiumClientSide/"+connection.getInetAddress().getHostName() + "+" 
+//													+ serverIP+ ".txt", true));
+							//for mac
+							writer = new BufferedWriter(new FileWriter("/Users/" + System.getProperty("user.name") + "/git/symposium-clientside/"
+									+ "SymposiumClientSide/"+connection.getInetAddress().getHostAddress() + "+" 
+									+ clientIP+ ".txt", true));
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+						
+					}else{
+						try{
+							File texting = new File("" + connection.getInetAddress().getHostAddress() + "+" + clientIP+ ".txt");
+							writer = new BufferedWriter(new FileWriter(texting, true));
+						}catch(IOException e){
+							e.printStackTrace();
+						}
+					}
+					try {
+						if (!event.getActionCommand().equals("END")){
+							writer.write("Client: " + event.getActionCommand() + "\r\n");
+							System.out.println(event.getActionCommand());
+						}
+						else{
+							writer.write("Conversation ended: " + LocalDateTime.now() + "\r\n");
+						}
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					try {
+						writer.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 					userText.setText("");
 				}
 			}
