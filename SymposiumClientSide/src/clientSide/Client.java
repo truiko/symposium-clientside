@@ -101,21 +101,21 @@ public class Client extends JFrame{
 //		//pane.insertIcon(new ImageIcon("src/resources/redcolor.jpg"));
 //		//pane.insertIcon(new ImageIcon("src/resources/Desert.jpg"));
 //		//((JTextPane) chatWindow).insertIcon(new ImageIcon("src/resources/redcolor.jpg"));
-//		attachment = new JButton("Attachment");
-//		attachment.setSize(1,1);
-//		add(attachment, BorderLayout.EAST);
-//		attachment.setVisible(true);
-//		
-//		attachment.addActionListener(new ActionListener(){
-//			public void actionPerformed(ActionEvent e){
-//				try {
-//					sendImage();
-//				} catch (IOException e1) {
-//					// TODO Auto-generated catch block
-//					e1.printStackTrace();
-//				}
-//			}
-//		});
+		attachment = new JButton("Attachment");
+		attachment.setSize(1,1);
+		add(attachment, BorderLayout.EAST);
+		attachment.setVisible(true);
+		
+		attachment.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				try {
+					sendImage();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 	}
 	
 	private void playbackSound(Message sound) {
@@ -305,9 +305,11 @@ public class Client extends JFrame{
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-        ImageIO.write(img, "jpg", output);
+		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        ImageIO.write(img, "jpg", byteArrayOutputStream);
+        output.write(byteArrayOutputStream.toByteArray());
         //output.flush();
-        output.writeObject(null);
+        output.writeObject("Client has sent an image.");
         //output.flush();
         System.out.println("sent");
         
