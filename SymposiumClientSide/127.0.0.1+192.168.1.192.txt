@@ -15,5 +15,9 @@ Client: jokes they r p cool
 Server: ayy u got me there
 Server: xd
 Server: kms
-Client: same
-tf
+Client: sameClient: howdy yall
+Server: whats gucci 
+Client: no
+Server: yes
+Client: no
+Server: yes
