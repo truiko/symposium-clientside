@@ -1,0 +1,7 @@
+Client: yup
+Conversation ended: 2017-06-14T23:51:18.441
+Client: hey
+Client: u good??
+Client: ill be fine
+Client: a++
+Conversation ended: 2017-06-14T23:55:56.804

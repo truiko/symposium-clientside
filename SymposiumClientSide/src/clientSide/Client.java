@@ -39,7 +39,7 @@ public class Client extends JFrame{
 					} catch (UnknownHostException e1) {
 						e1.printStackTrace();
 					}
-					File check = new File("" + connection.getInetAddress().getHostName() + "+" + clientIP+ ".txt");
+					File check = new File("" + connection.getInetAddress().getHostAddress() + "+" + clientIP+ ".txt");
 					if(check.isFile()){
 						try {//for windows
 //							writer = new BufferedWriter(new FileWriter("C:/Users/" + System.getProperty("user.name") + "/git/symposium-clientside/"
@@ -47,7 +47,7 @@ public class Client extends JFrame{
 //									+ serverIP+ ".txt", true));
 							//for mac
 							writer = new BufferedWriter(new FileWriter("/Users/" + System.getProperty("user.name") + "/git/symposium-clientside/"
-									+ "SymposiumClientSide/"+connection.getInetAddress().getHostName() + "+" 
+									+ "SymposiumClientSide/"+connection.getInetAddress().getHostAddress() + "+" 
 									+ clientIP+ ".txt", true));
 						} catch (IOException e) {
 							e.printStackTrace();
@@ -55,7 +55,7 @@ public class Client extends JFrame{
 						
 					}else{
 						try{
-							File texting = new File("" + connection.getInetAddress().getHostName() + "+" + clientIP+ ".txt");
+							File texting = new File("" + connection.getInetAddress().getHostAddress() + "+" + clientIP+ ".txt");
 							writer = new BufferedWriter(new FileWriter(texting, true));
 						}catch(IOException e){
 							e.printStackTrace();
