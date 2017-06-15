@@ -297,6 +297,7 @@ public class Client extends JFrame{
 		return newString;
 	}
 	
+	//sends image selected by client to server
 	private void sendImage() throws IOException{
 		//try (ServerSocket serv = new ServerSocket(25000)) {
 		   //  System.out.println("waiting...");
@@ -375,6 +376,7 @@ public class Client extends JFrame{
 //    }
 	}
 	
+	//receives image selected by server and displays it
 	private void receiveImage() throws IOException{
 		boolean running = true;
 //		System.out.println("initiating receival of image");
