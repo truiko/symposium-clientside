@@ -1,1 +1,15 @@
 Client: few
+Client: hey
+Client: wassup
+Client: HEY
+Client: WHATS GOOOOD
+Conversation ended: 1497491988091Client: hi
+Conversation ended: 2017-06-14T22:03:21.119Client: uhh
+Conversation ended: 2017-06-14T22:04:33.709-04:00[America/New_York]Client: cool beans
+Conversation ended: 2017-06-14T22:05:52.521
+Client: cool
+Client: beans
+Conversation ended: 2017-06-14T22:06:13.205
+Client: hey
+Client: hey joyce ur p cool
+Conversation ended: 2017-06-14T22:07:34.976

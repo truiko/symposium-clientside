@@ -2,6 +2,8 @@ package clientSide;
 
 import java.io.*;
 import java.net.*;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.Scanner;
 import java.awt.*;
 import java.awt.event.*;
@@ -21,6 +23,7 @@ public class Client extends JFrame{
 	private String serverIP;
 	private Socket connection;
 	private BufferedWriter writer;
+	private String clientIP;
 	
 	public Client(String host) {
 		super("Symposium Client");
@@ -31,19 +34,28 @@ public class Client extends JFrame{
 			new ActionListener(){
 				public void actionPerformed(ActionEvent event){
 					sendMessage(event.getActionCommand());//server       client
-					File check = new File("" + connection.getInetAddress().getHostName() + "+" + serverIP+ ".txt");
+					try {
+						clientIP = InetAddress.getLocalHost().getHostAddress();
+					} catch (UnknownHostException e1) {
+						e1.printStackTrace();
+					}
+					File check = new File("" + connection.getInetAddress().getHostName() + "+" + clientIP+ ".txt");
 					if(check.isFile()){
-						try {
-							writer = new BufferedWriter(new FileWriter("C:/Users/" + System.getProperty("user.name") + "/git/symposium-clientside/"
+						try {//for windows
+//							writer = new BufferedWriter(new FileWriter("C:/Users/" + System.getProperty("user.name") + "/git/symposium-clientside/"
+//									+ "SymposiumClientSide/"+connection.getInetAddress().getHostName() + "+" 
+//									+ serverIP+ ".txt", true));
+							//for mac
+							writer = new BufferedWriter(new FileWriter("/Users/" + System.getProperty("user.name") + "/git/symposium-clientside/"
 									+ "SymposiumClientSide/"+connection.getInetAddress().getHostName() + "+" 
-									+ serverIP+ ".txt", true));
+									+ clientIP+ ".txt", true));
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
 						
 					}else{
 						try{
-							File texting = new File("" + connection.getInetAddress().getHostName() + "+" + serverIP+ ".txt");
+							File texting = new File("" + connection.getInetAddress().getHostName() + "+" + clientIP+ ".txt");
 							writer = new BufferedWriter(new FileWriter(texting, true));
 						}catch(IOException e){
 							e.printStackTrace();
@@ -53,6 +65,9 @@ public class Client extends JFrame{
 						if (!event.getActionCommand().equals("END")){
 							writer.write("Client: " + event.getActionCommand() + "\r\n");
 							System.out.println(event.getActionCommand());
+						}
+						else{
+							writer.write("Conversation ended: " + LocalDateTime.now() + "\r\n");
 						}
 					} catch (IOException e) {
 						e.printStackTrace();
