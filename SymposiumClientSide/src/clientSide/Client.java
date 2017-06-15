@@ -89,7 +89,7 @@ public class Client extends JFrame{
 							System.out.println(event.getActionCommand());
 						}
 						else{
-							writer.write("Conversation ended: " + LocalDateTime.now() + "\r\n");
+							writer.write("tf");//writer.write("Conversation ended: " + LocalDateTime.now() + "\r\n");
 						}
 					} catch (IOException e) {
 						e.printStackTrace();
