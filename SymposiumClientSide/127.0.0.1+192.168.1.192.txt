@@ -5,3 +5,11 @@ Client: u good??
 Client: ill be fine
 Client: a++
 Conversation ended: 2017-06-14T23:55:56.804
+Client: yay
+Client: will this work
+Client: good q
+Client: idk lets see
+Conversation ended: 2017-06-15T00:14:04.817
+Client: i am client
+Server: i am server
+Conversation ended: 2017-06-15T00:16:11.127
